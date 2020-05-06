@@ -278,8 +278,9 @@ LOCAL void RFM69_interruptHandling(void)
 			             RFM69.currentPacket.header.packetLen - 1);
 
 			if (RFM69.currentPacket.header.version >= RFM69_MIN_PACKET_HEADER_VERSION) {
-				RFM69.currentPacket.payloadLen = min(RFM69.currentPacket.header.packetLen - (RFM69_HEADER_LEN - 1),
-				                                     RFM69_MAX_PACKET_LEN);
+				RFM69.currentPacket.payloadLen = min<uint32_t>(RFM69.currentPacket.header.packetLen -
+				                                 (RFM69_HEADER_LEN - 1),
+				                                 RFM69_MAX_PACKET_LEN);
 				RFM69.ackReceived = RFM69_getACKReceived(RFM69.currentPacket.header.controlFlags);
 				RFM69.dataReceived = !RFM69.ackReceived;
 			}
