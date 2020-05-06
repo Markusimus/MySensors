@@ -30,7 +30,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#if (defined(__GLIBC__) && (__GLIBC__ == 2 && __GLIBC_MINOR__ < 30))
 #include <stropts.h>
+#endif
 #include <errno.h>
 #include <sched.h>
 #include "log.h"
