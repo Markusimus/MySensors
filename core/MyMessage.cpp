@@ -281,7 +281,8 @@ char* MyMessage::getString(char *buffer) const
 	if (buffer != NULL) {
 		const uint8_t payloadType = this->getPayloadType();
 		if (payloadType == P_STRING) {
-			// The GCC 8.0 > issue false positive warning -Wstringop-truncation
+			// The GCC 8.0 > issues false positive warning -Wstringop-truncation
+			// The end of string is correctly ended with 0 character.
 #pragma GCC diagnostic ignored "-Wstringop-truncation"
 			(void)strncpy(buffer, this->data, this->getLength());
 			buffer[this->getLength()] = 0;
@@ -391,7 +392,8 @@ MyMessage& MyMessage::set(const char* value)
 {
 	(void)this->setLength((value != NULL) ? strlen(value) : 0);
 	(void)this->setPayloadType(P_STRING);
-	// The GCC 8.0 > issue false positive warning -Wstringop-truncation
+	// The GCC 8.0 > issues false positive warning -Wstringop-truncation
+	// The end of string is correctly ended with 0 character.
 #pragma GCC diagnostic ignored "-Wstringop-truncation"
 	(void)strncpy(this->data, value, this->getLength());
 	// null terminate string

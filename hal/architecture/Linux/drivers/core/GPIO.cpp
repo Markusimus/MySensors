@@ -51,7 +51,7 @@ GPIOClass::GPIOClass()
 
 		if (strncmp("gpiochip", de->d_name, 8) == 0) {
 			if ( snprintf(file, sizeof(file), "/sys/class/gpio/%s/base", de->d_name) < 0 ) {
-				logError("Fail name was truncated %s\n", file);
+				logError("The GPIO file name was truncated %s\n", file);
 				continue;
 			}
 
@@ -64,7 +64,7 @@ GPIOClass::GPIOClass()
 			fclose(f);
 
 			if ( snprintf(file, sizeof(file), "/sys/class/gpio/%s/ngpio", de->d_name) < 0 ) {
-				logError("Fail name was truncated %s\n", file);
+				logError("The GPIO file name was truncated %s\n", file);
 				continue;
 			}
 
