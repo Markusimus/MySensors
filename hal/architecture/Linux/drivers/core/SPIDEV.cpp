@@ -40,7 +40,7 @@ std::string SPIDEVClass::device = SPI_SPIDEV_DEVICE;
 uint8_t SPIDEVClass::mode = SPI_MODE0;
 uint32_t SPIDEVClass::speed = SPI_CLOCK_BASE;
 uint8_t SPIDEVClass::bit_order = MSBFIRST;
-struct spi_ioc_transfer SPIDEVClass::tr = {0,0,0,0,0,8,0,0,0,0};	// 8 bits_per_word, 0 cs_change
+struct spi_ioc_transfer SPIDEVClass::tr = {0,0,0,0,0,8,0,0,0,0,0};	// 8 bits_per_word, 0 cs_change
 
 SPIDEVClass::SPIDEVClass()
 {

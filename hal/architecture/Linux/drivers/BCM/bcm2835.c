@@ -1727,7 +1727,7 @@ int bcm2835_init(void)
 	*/
 	if ((fp = fopen(BMC2835_RPI2_DT_FILENAME, "rb"))) {
 		unsigned char buf[16];
-		uint32_t base_address;
+		intptr_t base_address;
 		uint32_t peri_size;
 		if (fread(buf, 1, sizeof(buf), fp) >= 8) {
 			base_address = (buf[4] << 24) |
@@ -1752,6 +1752,8 @@ int bcm2835_init(void)
 				            (buf[14] << 8) |
 				            (buf[15] << 0);
 			}
+			base_address &= 0xFFFFFFFF;
+
 			/* check for valid known range formats */
 			if ((buf[0] == 0x7e) &&
 			        (buf[1] == 0x00) &&
@@ -1767,7 +1769,6 @@ int bcm2835_init(void)
 			}
 
 		}
-
 		fclose(fp);
 	}
 	/* else we are prob on RPi 1 with BCM2835, and use the hardwired defaults */

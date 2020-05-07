@@ -281,8 +281,11 @@ char* MyMessage::getString(char *buffer) const
 	if (buffer != NULL) {
 		const uint8_t payloadType = this->getPayloadType();
 		if (payloadType == P_STRING) {
+			// The GCC 8.0 > issue false positive warning -Wstringop-truncation
+#pragma GCC diagnostic ignored "-Wstringop-truncation"
 			(void)strncpy(buffer, this->data, this->getLength());
 			buffer[this->getLength()] = 0;
+#pragma GCC diagnostic warning "-Wstringop-truncation"
 		} else if (payloadType == P_BYTE) {
 			(void)itoa(bValue, buffer, 10);
 		} else if (payloadType == P_INT16) {
@@ -388,9 +391,12 @@ MyMessage& MyMessage::set(const char* value)
 {
 	(void)this->setLength((value != NULL) ? strlen(value) : 0);
 	(void)this->setPayloadType(P_STRING);
+	// The GCC 8.0 > issue false positive warning -Wstringop-truncation
+#pragma GCC diagnostic ignored "-Wstringop-truncation"
 	(void)strncpy(this->data, value, this->getLength());
 	// null terminate string
 	this->data[this->getLength()] = 0;
+#pragma GCC diagnostic warning "-Wstringop-truncation"
 	return *this;
 }
 
